@@ -286,6 +286,12 @@ class Tree {
         }
         return result;
     }
+
+    rebalance() {
+        let dataArr = this.inorder();
+        this.root = this.buildTree(dataArr);
+        return this.root;
+    }
 }
 
 // [1,2,3,4]
@@ -310,5 +316,8 @@ prettyPrint(newTree.root);
 newTree.delete(3);
 newTree.delete(1);
 prettyPrint(newTree.root);
-console.log(newTree.levelOrder());
-console.log(newTree.isBalanced());
+newTree.rebalance();
+prettyPrint(newTree.root);
+newTree.delete(9);
+newTree.rebalance();
+prettyPrint(newTree.root);
