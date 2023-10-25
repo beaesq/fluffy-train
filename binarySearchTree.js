@@ -217,6 +217,19 @@ class Tree {
         this.preorder(fn, data, node.right);
         return data;
     }
+
+    postorder(fn = null, data = [], node = this.root) {
+        if (!node) return;
+        let currentData = node.data;
+        this.postorder(fn, data, node.left);
+        this.postorder(fn, data, node.right);
+        if (typeof fn == 'function') {
+            data.push(fn(currentData));
+        } else {
+            data.push(currentData);
+        }
+        return data;
+    }
 }
 
 // [1,2,3,4]
@@ -238,5 +251,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 prettyPrint(newTree.root);
 
-console.log(newTree.preorder());
-console.log(newTree.preorder((x) => x + 2));
+console.log(newTree.postorder());
+console.log(newTree.postorder((x) => x + 2));
