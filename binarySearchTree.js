@@ -177,10 +177,8 @@ class Tree {
 
     levelOrder(fn = null, data = [], queue = [this.root]) {
         while (queue.length > 0) {
-            // console.log(queue);
             let currentNode = queue.shift();
             let currentData = currentNode.data;
-            // console.log(currentData);
             
             if (typeof fn == 'function') {
                 data.push(fn(currentData));
@@ -191,6 +189,19 @@ class Tree {
             if (currentNode.left) queue.push(currentNode.left);
             if (currentNode.right) queue.push(currentNode.right);
         }
+        return data;
+    }
+
+    inorder(fn = null, data = [], node = this.root) {
+        if (!node) return;
+        this.inorder(fn, data, node.left);
+        let currentData = node.data;
+        if (typeof fn == 'function') {
+            data.push(fn(currentData));
+        } else {
+            data.push(currentData);
+        }
+        this.inorder(fn, data, node.right);
         return data;
     }
 }
@@ -214,5 +225,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 prettyPrint(newTree.root);
 
-console.log(newTree.levelOrder());
-console.log(newTree.levelOrder((x) => x + 2));
+console.log(newTree.inorder());
+console.log(newTree.inorder((x) => x + 2));
