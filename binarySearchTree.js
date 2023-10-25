@@ -102,6 +102,26 @@ class Tree {
         cleanArray = this.#removeDuplicates(cleanArray);
         return this.#makeTree(cleanArray);
     }
+
+    insert(data, node = this.root) {
+        if (data == node.data) {
+            return null;
+        } else if (data < node.data) {
+            if (!node.left) {
+                let newNode = new Node(data);
+                node.left = newNode;
+            } else {
+                this.insert(data, node.left);
+            }
+        } else {
+            if (!node.right) {
+                let newNode = new Node(data);
+                node.right = newNode;
+            } else {
+                this.insert(data, node.right);
+            }
+        }
+    }
 }
 
 // [1,2,3,4]
@@ -121,4 +141,12 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     }
   };
 
+prettyPrint(newTree.root);
+
+newTree.insert(10);
+prettyPrint(newTree.root);
+
+newTree.insert(2);
+prettyPrint(newTree.root);
+newTree.insert(100);
 prettyPrint(newTree.root);
