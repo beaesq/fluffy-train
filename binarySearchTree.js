@@ -293,31 +293,3 @@ class Tree {
         return this.root;
     }
 }
-
-// [1,2,3,4]
-let newTree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 7, 9, 67, 6345, 324]);
-
-
-const prettyPrint = (node, prefix = "", isLeft = true) => {
-    if (node === null) {
-      return;
-    }
-    if (node.right !== null) {
-      prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
-    }
-    console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
-    if (node.left !== null) {
-      prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
-    }
-  };
-
-prettyPrint(newTree.root);
-
-newTree.delete(3);
-newTree.delete(1);
-prettyPrint(newTree.root);
-newTree.rebalance();
-prettyPrint(newTree.root);
-newTree.delete(9);
-newTree.rebalance();
-prettyPrint(newTree.root);
