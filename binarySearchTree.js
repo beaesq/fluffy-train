@@ -123,6 +123,43 @@ class Tree {
         }
     }
 
+    delete(data, node = this.root) {
+        if (this.root == null) {
+            return null;
+        }
+
+        if (data < node.data) {
+            node.left = this.delete(data, node.left); 
+            return node;
+        } else if (data > node.data) {
+            node.right = this.delete(data, node.right);
+            return node;
+        } else {
+            if (!node.left) {
+                return node.right;
+            } else if (!node.right) {
+                return node.left;
+            } else {
+                //get successor value
+                let temp = node.right;
+                let tempParent = node;
+                while (temp.left) {
+                    tempParent = temp;
+                    temp = temp.left;
+                }
+
+                if (tempParent != node) {
+                    tempParent.left = temp.right;
+                } else {
+                    tempParent.right = temp.left;
+                }
+                
+                node.data = temp.data;
+                return node;
+            }
+        }
+    }
+
     find(data, node = this.root) {
         if (this.root == null) {
             return null;
@@ -158,6 +195,8 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 prettyPrint(newTree.root);
 
-console.log(newTree.find(9));
-console.log(newTree.find(4));
-console.log(newTree.find(10));
+newTree.delete(4);
+// newTree.delete(4);
+// newTree.delete(7);
+prettyPrint(newTree.root);
+// console.log(newTree.root.left);
