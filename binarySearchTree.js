@@ -245,6 +245,23 @@ class Tree {
             return rightHt;
         }
     }
+
+    depth(targetNode, currentNode = this.root, dt = 0) {
+        if (targetNode == currentNode) {
+            return dt;
+        }
+        if (!currentNode.left && !currentNode.right) {
+            return null;
+        }
+
+        if (targetNode.data < currentNode.data) {
+            dt = this.depth(targetNode, currentNode.left, dt + 1);
+        }
+        if (targetNode.data > currentNode.data) {
+            dt = this.depth(targetNode, currentNode.right, dt + 1);
+        } 
+        return dt;
+    }
 }
 
 // [1,2,3,4]
@@ -266,9 +283,9 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 prettyPrint(newTree.root);
 
-let node = newTree.find(9);
-console.log(newTree.height(node));
-node = newTree.find(324);
-console.log(newTree.height(node));
-node = newTree.find(1);
-console.log(newTree.height(node));
+let node = newTree.find(6345);
+console.log(newTree.depth(node));
+node = newTree.find(23);
+console.log(newTree.depth(node));
+node = newTree.find(67);
+console.log(newTree.depth(node));
