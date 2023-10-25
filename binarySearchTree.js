@@ -293,3 +293,5 @@ class Tree {
         return this.root;
     }
 }
+
+module.exports = Tree;
