@@ -262,6 +262,30 @@ class Tree {
         } 
         return dt;
     }
+
+    isBalanced() {
+        let queue = [this.root];
+        let leftHt = 0;
+        let rightHt = 0;
+        let result = true;
+        while (queue.length > 0) {
+            let node = queue.shift();
+            if (node.left) {
+                queue.push(node.left);
+                leftHt = this.height(node.left) + 1;
+            }
+            if (node.right) {
+                queue.push(node.right);
+                rightHt = this.height(node.right) + 1;
+            }
+            if (Math.abs(leftHt - rightHt) > 1) {
+                result = false;
+            }
+            leftHt = 0;
+            rightHt = 0;
+        }
+        return result;
+    }
 }
 
 // [1,2,3,4]
@@ -283,9 +307,8 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 prettyPrint(newTree.root);
 
-let node = newTree.find(6345);
-console.log(newTree.depth(node));
-node = newTree.find(23);
-console.log(newTree.depth(node));
-node = newTree.find(67);
-console.log(newTree.depth(node));
+newTree.delete(3);
+newTree.delete(1);
+prettyPrint(newTree.root);
+console.log(newTree.levelOrder());
+console.log(newTree.isBalanced());
