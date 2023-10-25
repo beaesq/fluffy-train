@@ -230,10 +230,25 @@ class Tree {
         }
         return data;
     }
+
+    height(node, leftHt = 0, rightHt = 0) {
+        if (!node) return;
+        if (node.left) {
+            leftHt = this.height(node.left, leftHt + 1);
+        }
+        if (node.right) {
+            rightHt = this.height(node.right, rightHt + 1);
+        }
+        if (leftHt > rightHt) {
+            return leftHt;
+        } else {
+            return rightHt;
+        }
+    }
 }
 
 // [1,2,3,4]
-let newTree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+let newTree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 7, 9, 67, 6345, 324]);
 
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -251,5 +266,9 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 prettyPrint(newTree.root);
 
-console.log(newTree.postorder());
-console.log(newTree.postorder((x) => x + 2));
+let node = newTree.find(9);
+console.log(newTree.height(node));
+node = newTree.find(324);
+console.log(newTree.height(node));
+node = newTree.find(1);
+console.log(newTree.height(node));
