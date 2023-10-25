@@ -122,6 +122,21 @@ class Tree {
             }
         }
     }
+
+    find(data, node = this.root) {
+        if (this.root == null) {
+            return null;
+        }
+
+        if (data < node.data) {
+            if (node.left) return this.find(data, node.left);
+        } else if (data > node.data) {
+            if (node.right) return this.find(data, node.right);
+        } else {
+            return node;
+        }
+        return null;
+    }
 }
 
 // [1,2,3,4]
@@ -143,10 +158,6 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 prettyPrint(newTree.root);
 
-newTree.insert(10);
-prettyPrint(newTree.root);
-
-newTree.insert(2);
-prettyPrint(newTree.root);
-newTree.insert(100);
-prettyPrint(newTree.root);
+console.log(newTree.find(9));
+console.log(newTree.find(4));
+console.log(newTree.find(10));
