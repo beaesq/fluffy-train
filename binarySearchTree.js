@@ -174,6 +174,25 @@ class Tree {
         }
         return null;
     }
+
+    levelOrder(fn = null, data = [], queue = [this.root]) {
+        while (queue.length > 0) {
+            // console.log(queue);
+            let currentNode = queue.shift();
+            let currentData = currentNode.data;
+            // console.log(currentData);
+            
+            if (typeof fn == 'function') {
+                data.push(fn(currentData));
+            } else {
+                data.push(currentData);
+            }
+            
+            if (currentNode.left) queue.push(currentNode.left);
+            if (currentNode.right) queue.push(currentNode.right);
+        }
+        return data;
+    }
 }
 
 // [1,2,3,4]
@@ -195,8 +214,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 prettyPrint(newTree.root);
 
-newTree.delete(4);
-// newTree.delete(4);
-// newTree.delete(7);
-prettyPrint(newTree.root);
-// console.log(newTree.root.left);
+console.log(newTree.levelOrder());
+console.log(newTree.levelOrder((x) => x + 2));
